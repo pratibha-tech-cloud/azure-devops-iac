@@ -1,0 +1,45 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+name:  NewPipline
+trigger:
+- main
+- feature/15OCT
+
+pool:  Evening
+stages:
+  - stage: terraformiac
+    jobs:
+      - job: terraformjob
+        steps:
+        - task: TerraformInstaller@1
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'WednesdaySC'
+            backendAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
+            backendAzureRmResourceGroupName: 'paglabackend2'
+            backendAzureRmStorageAccountName: 'paglabackend2'
+            backendAzureRmContainerName: 'newcontainer'
+            backendAzureRmKey: 'terraform.tfstate'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            environmentServiceNameAzureRM: 'WednesdaySC'
+            environmentAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
+        - task: TerraformTask@5
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            environmentServiceNameAzureRM: 'WednesdaySC'
+            environmentAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
+
