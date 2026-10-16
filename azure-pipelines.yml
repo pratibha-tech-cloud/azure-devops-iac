@@ -1,7 +1,7 @@
 name: updatedpipeline
 trigger: 
 - main
-- feature/15OCT
+- feature/*
 pool:  IacAgent2
 stages:
   - stage: terraformIac
