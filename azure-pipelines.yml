@@ -37,3 +37,4 @@ stages:
             command: 'apply'
             environmentServiceNameAzureRM: 'IacConnection2'
             environmentAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
+            environmentAzureRmUseIdTokenGeneration: true
