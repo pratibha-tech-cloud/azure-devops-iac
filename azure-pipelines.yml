@@ -1,28 +1,24 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-name:  NewPipline
-trigger:
+name: updatedpipeline
+trigger: 
 - main
 - feature/15OCT
-
-pool:  Evening
+pool:  IacAgent2
 stages:
-  - stage: terraformiac
+  - stage: terraformIac
     jobs:
       - job: terraformjob
         steps:
-        - task: TerraformInstaller@1
-          inputs:
-            terraformVersion: 'latest'
+          - 
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'WednesdaySC'
+            backendServiceArm: 'IacConnection2'
             backendAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
-            backendAzureRmResourceGroupName: 'paglabackend2'
+            backendAzureRmResourceGroupName: 'rg-paglabackend'
             backendAzureRmStorageAccountName: 'paglabackend2'
             backendAzureRmContainerName: 'newcontainer'
             backendAzureRmKey: 'terraform.tfstate'
@@ -34,12 +30,11 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'plan'
-            environmentServiceNameAzureRM: 'WednesdaySC'
+            environmentServiceNameAzureRM: 'IacConnection2'
             environmentAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
             command: 'apply'
-            environmentServiceNameAzureRM: 'WednesdaySC'
+            environmentServiceNameAzureRM: 'IacConnection2'
             environmentAzureRmOverrideSubscriptionID: '73c9b1d1-79bb-4bf7-8b46-db211fe52d6f'
-
