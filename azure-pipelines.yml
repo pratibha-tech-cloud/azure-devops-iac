@@ -20,7 +20,7 @@ stages:
             backendAzureRmResourceGroupName: 'rg-paglabackend'
             backendAzureRmStorageAccountName: 'paglabackend2'
             backendAzureRmContainerName: 'newcontainer'
-            backendAzureRmKey: 'terraform.tfstate'
+            backendAzureRmKey: 'keycontainer'
         - task: TerraformTask@5
           inputs:
             provider: 'azurerm'
